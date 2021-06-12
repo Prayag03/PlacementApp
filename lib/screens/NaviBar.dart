@@ -26,9 +26,11 @@ class _NaviBarState extends State<NaviBar> {
       body: PageView(
         controller: _pageController,
         children: <Widget>[
-          Adminhome(),
+          Adminhome(user: user),
           Status(),
-          Profile(),
+          Profile(
+            user: user,
+          ),
         ],
         onPageChanged: (pageIndex) {
           setState(() {

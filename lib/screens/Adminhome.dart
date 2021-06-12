@@ -60,85 +60,113 @@ class _AdminhomeState extends State<Adminhome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        //automaticallyImplyLeading: false,
-        backgroundColor: Colors.blue[300],
-        title: Text(
-          "Placement App-Admin",
-          style: GoogleFonts.pattaya(fontSize: 30),
+        appBar: AppBar(
+          //automaticallyImplyLeading: false,
+          backgroundColor: Colors.blue[300],
+          title: Text(
+            "Placement App-Admin",
+            style: GoogleFonts.pattaya(fontSize: 30),
+          ),
+          centerTitle: true,
+          elevation: 10,
         ),
-        centerTitle: true,
-        elevation: 10,
-      ),
-      drawer: Drawer(
-          child: Column(
-        children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text(
-              '$name',
-              style: TextStyle(
-                fontSize: 15.0,
-              ),
-            ),
-            accountEmail: Text(
-              '$email',
-              style: TextStyle(
-                fontSize: 15.0,
-              ),
-            ),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Text(
-                "S",
+        drawer: Drawer(
+            child: Column(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text(
+                '$name',
                 style: TextStyle(
-                  color: Colors.red,
+                  fontSize: 15.0,
+                ),
+              ),
+              accountEmail: Text(
+                '$email',
+                style: TextStyle(
+                  fontSize: 15.0,
+                ),
+              ),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Text(
+                  "S",
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ),
-          ),
-          ListTile(
-            title: Text(
-              "About",
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.white,
-              ),
-            ),
-            trailing: Icon(
-              Icons.info,
-              color: Colors.blueAccent,
-            ),
-            onTap: () {},
-          ),
-          ListTile(
+            ListTile(
               title: Text(
-                "Logout",
+                "About",
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,
                 ),
               ),
               trailing: Icon(
-                Icons.exit_to_app,
+                Icons.info,
                 color: Colors.blueAccent,
               ),
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => Loginscreen()));
-              }),
-          InkWell(
-            borderRadius: BorderRadius.circular(500),
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.white,
-              child: Icon(Icons.arrow_back, color: Colors.redAccent),
+              onTap: () {},
             ),
-          ),
-        ],
-      )),
-    );
+            ListTile(
+                title: Text(
+                  "Logout",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                  ),
+                ),
+                trailing: Icon(
+                  Icons.exit_to_app,
+                  color: Colors.blueAccent,
+                ),
+                onTap: () {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => Loginscreen()));
+                }),
+            InkWell(
+              borderRadius: BorderRadius.circular(500),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: CircleAvatar(
+                radius: 25,
+                backgroundColor: Colors.white,
+                child: Icon(Icons.arrow_back, color: Colors.redAccent),
+              ),
+            ),
+          ],
+        )),
+        body: Column(
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 260.0,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage("Assets/tcs.png"),
+                ),
+              ),
+            ),
+            ExpansionTile(
+              title: Text(
+                'Tata Consultancy Services',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 25.0,
+                ),
+              ),
+              children: <Widget>[
+                Text(
+                  'TCS and its 67 subsidiaries provide a wide range of information technology-related products and services including application development, business process outsourcing, capacity planning, consulting, enterprise software, hardware sizing, payment processing, software management, and technology education services.',
+                  style: TextStyle(color: Colors.black, fontSize: 20.0),
+                )
+              ],
+            )
+          ],
+        ));
   }
 }

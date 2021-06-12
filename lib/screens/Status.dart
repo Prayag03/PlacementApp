@@ -17,7 +17,7 @@ class _StatusState extends State<Status> {
               color: Colors.white,
             )),
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blue[300],
         automaticallyImplyLeading: false,
       ),
     );

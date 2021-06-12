@@ -4,6 +4,7 @@ import 'package:placementapp/pages/Loginscreen.dart';
 import 'package:placementapp/screens/Adminhome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:placementapp/screens/NaviBar.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 
 const String boxname = '';
 Future<void> main() async {
@@ -13,7 +14,23 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return /* CupertinoAdaptiveTheme(
+      light: CupertinoThemeData(
+        brightness: Brightness.light,
+      ),
+      dark: CupertinoThemeData(
+        brightness: Brightness.dark,
+      ),
+      initial: AdaptiveThemeMode.light,
+      builder: (theme) => CupertinoApp(
+        title: 'Adaptive Theme Demo',
+        theme: theme,
+        darkTheme: darkTheme,
+        home: HomePage(),
+      ),
+    ); */
+
+        MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Placement App",
       theme: ThemeData(

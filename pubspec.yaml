@@ -36,6 +36,11 @@ dependencies:
   fluttertoast: ^7.1.6
   firebase_core: ^0.4.4
   bottom_navy_bar: ^5.5.0
+  adaptive_theme: ^1.1.0
+  image_picker: ^0.6.7+21
+  firebase_storage: ^3.1.5
+
+
 
 dev_dependencies:
   flutter_test:
@@ -53,7 +58,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+   - Assets/
+    
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
