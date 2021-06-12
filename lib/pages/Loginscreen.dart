@@ -6,9 +6,8 @@ import 'package:placementapp/pages/Signupscreen.dart';
 import 'package:placementapp/pages/Forgotpassword.dart';
 import 'package:placementapp/pages/AdminLogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:placementapp/screens/Adminhome.dart';
+import 'package:placementapp/screens/admin/Adminhome.dart';
 import 'package:placementapp/controllers/authentications.dart';
-
 
 class Loginscreen extends StatefulWidget {
   @override
@@ -20,8 +19,7 @@ class _LoginscreenState extends State<Loginscreen> {
   String password;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-
-   void login() {
+  void login() {
     if (formkey.currentState.validate()) {
       formkey.currentState.save();
       signIn(email.trim(), password, context).then((value) {
@@ -36,28 +34,26 @@ class _LoginscreenState extends State<Loginscreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.blue[500],
-          title: Text(
-            "Placement App",
-            style: GoogleFonts.pattaya(fontSize:30),
-          ),
-          centerTitle: true,
-          elevation: 10,
+        backgroundColor: Colors.blue[500],
+        title: Text(
+          "Placement App",
+          style: GoogleFonts.pattaya(fontSize: 30),
         ),
+        centerTitle: true,
+        elevation: 10,
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-          
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 20.0),
                 child: Text(
-                  "Login Here!",
+                  "Login Here! student",
                   style: TextStyle(
                     fontSize: 30.0,
                     color: Colors.white,

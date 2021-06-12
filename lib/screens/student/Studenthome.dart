@@ -4,37 +4,45 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'package:placementapp/pages/Loginscreen.dart';
+import 'package:placementapp/screens/student/Studentprofile.dart';
+import 'package:placementapp/main.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:placementapp/screens/student/Studentportal.dart';
+import 'package:placementapp/screens/student/Studentselect.dart';
 
-class Adminhome extends StatefulWidget {
+class Studenthome extends StatefulWidget {
   final FirebaseUser user;
 
-  const Adminhome({Key key, this.user}) : super(key: key);
+  const Studenthome({Key key, this.user}) : super(key: key);
   @override
-  _AdminhomeState createState() => _AdminhomeState(user);
+  _StudenthomeState createState() => _StudenthomeState(user);
 }
 
-class _AdminhomeState extends State<Adminhome> {
-  final FirebaseUser user;
-  _AdminhomeState(this.user);
+class _StudenthomeState extends State<Studenthome> {
+  final PageController _pageController = PageController();
   String name, email;
+  int currentindex = 0;
+
+  /* _StudenthomeState(this.user);
   final db = Firestore.instance;
   Future<DocumentSnapshot> document;
-
-  final PageController _pageController = PageController();
-  int currentIndex = 0;
-
-  /* Future getdata() async {
-    final Future<DocumentSnapshot> document =
-        Firestore.instance.collection('users').document(user.uid).get();
-
-    await document.then<dynamic>((DocumentSnapshot snapshot) async {
-      setState(() {
-        name = snapshot.data['name'];
-        email = snapshot.data['email'];
-      });
+  Future<void> getdata() async {
+    document = Firestore.instance.collection('users').document(user.uid).get();
+    document.then<dynamic>((DocumentSnapshot snapshot) async {
+      if (mounted) {
+        setState(() {
+          name = snapshot.data['name'];
+          email = user.email;
+        });
+      }
     });
-  } */
+    return;
+  }*/
 
+  final db = Firestore.instance;
+  Future<DocumentSnapshot> document;
+  final FirebaseUser user;
+  _StudenthomeState(this.user);
   Future<void> getdata() async {
     document = Firestore.instance.collection('users').document(user.uid).get();
     document.then<dynamic>((DocumentSnapshot snapshot) async {
@@ -52,9 +60,6 @@ class _AdminhomeState extends State<Adminhome> {
   void initState() {
     super.initState();
     getdata();
-    /*  setState(() {
-      db.collection('users').document(user.uid).updateData({'name': name});
-    }); */
   }
 
   @override
@@ -62,10 +67,16 @@ class _AdminhomeState extends State<Adminhome> {
     return Scaffold(
         appBar: AppBar(
           //automaticallyImplyLeading: false,
-          backgroundColor: Colors.blue[300],
+          backgroundColor: Colors.grey[900],
           title: Text(
-            "Placement App-Admin",
-            style: GoogleFonts.pattaya(fontSize: 30),
+            "Placement App-Student",
+            style: GoogleFonts.courgette(
+              //pacifico
+              textStyle: TextStyle(
+                fontSize: 29,
+                color: Colors.orange[300],
+              ),
+            ),
           ),
           centerTitle: true,
           elevation: 10,
@@ -139,34 +150,63 @@ class _AdminhomeState extends State<Adminhome> {
             ),
           ],
         )),
-        body: Column(
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 260.0,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage("Assets/tcs.png"),
-                ),
-              ),
-            ),
-            ExpansionTile(
+        bottomNavigationBar: BottomNavyBar(
+          selectedIndex: currentindex,
+          backgroundColor: Colors.grey[900],
+          onItemSelected: (index) {
+            setState(() {
+              currentindex = index;
+              _pageController.jumpToPage(index);
+            });
+          },
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(
+              icon: Icon(Icons.home),
               title: Text(
-                'Tata Consultancy Services',
+                'Home',
                 style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 25.0,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.orange[300]),
+              ),
+              activeColor: Colors.orange[300],
+              inactiveColor: Colors.white,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.assistant_photo),
+              title: Text(
+                'Selected',
+                style: TextStyle(
+                  fontSize: 20,
                 ),
               ),
-              children: <Widget>[
-                Text(
-                  'TCS and its 67 subsidiaries provide a wide range of information technology-related products and services including application development, business process outsourcing, capacity planning, consulting, enterprise software, hardware sizing, payment processing, software management, and technology education services.',
-                  style: TextStyle(color: Colors.black, fontSize: 20.0),
-                )
-              ],
-            )
+              activeColor: Colors.orange[300],
+              inactiveColor: Colors.white,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.alarm),
+              title: Text(
+                'Profile',
+                style: TextStyle(fontSize: 20),
+              ),
+              activeColor: Colors.orange[300],
+              inactiveColor: Colors.white,
+            ),
           ],
+        ),
+        body: PageView(
+          //allowImplicitScrolling: true,
+          controller: _pageController,
+          children: <Widget>[
+            Studentportal(),
+            Studentselect(),
+            Studentprofile(),
+          ],
+          onPageChanged: (pageIndex) {
+            setState(() {
+              currentindex = pageIndex;
+            });
+          },
         ));
   }
 }

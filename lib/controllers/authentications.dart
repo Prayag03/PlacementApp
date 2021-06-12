@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:placementapp/pages/Loginscreen.dart';
+import 'package:placementapp/pages/Adminlogin.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 

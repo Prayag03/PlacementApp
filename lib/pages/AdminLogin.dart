@@ -3,6 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:placementapp/pages/Signupscreen.dart';
 import 'package:placementapp/pages/Forgotpassword.dart';
+import 'package:placementapp/pages/Loginscreen.dart';
+import 'package:placementapp/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:placementapp/controllers/authentications.dart';
+import 'package:placementapp/screens/admin/Adminhome.dart';
 
 class AdminLogin extends StatefulWidget {
   @override
@@ -13,6 +19,21 @@ class _AdminLoginState extends State<AdminLogin> {
   String email;
   String password;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
+  void login() {
+    if (formkey.currentState.validate()) {
+      formkey.currentState.save();
+      signIn(email.trim(), password, context).then((value) {
+        if (value != null) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(uid: value.uid),
+              ));
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +129,7 @@ class _AdminLoginState extends State<AdminLogin> {
                           width: 100,
                           child: RaisedButton(
                             color: Colors.blue,
-                            onPressed: () {}, //login,
+                            onPressed: login,
                             child: Text(
                               "Login",
                               style: TextStyle(
@@ -119,7 +140,17 @@ class _AdminLoginState extends State<AdminLogin> {
                           ),
                         ),
                       ),
-                      Padding(
+                      GestureDetector(
+                        child: Container(
+                            alignment: Alignment.centerRight,
+                            child: Text("or Login as Student",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15.0))),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      /*  Padding(
                         padding: EdgeInsets.symmetric(vertical: 20.0),
                         child: GestureDetector(
                           child: Container(
@@ -135,7 +166,7 @@ class _AdminLoginState extends State<AdminLogin> {
                                     builder: (context) => Signupscreen()));
                           },
                         ),
-                      ),
+                      ), */
                     ],
                   ),
                 ),
